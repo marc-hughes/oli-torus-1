@@ -1077,6 +1077,7 @@ const ExternalActivity: React.FC<PartComponentProps<CapiIframeModel>> = (props) 
       title={title}
       src={frameSrc}
       scrolling={scrolling}
+      sandbox="allow-downloads allow-forms allow-scripts"
     />
   ) : null;
 };
