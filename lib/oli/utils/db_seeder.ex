@@ -1250,4 +1250,28 @@ defmodule Oli.Seeder do
 
     gating_condition
   end
+
+  def create_author_account(), do: create_user_account(SystemRole.role_id().author)
+  def create_admin_account(), do: create_user_account(SystemRole.role_id().admin)
+
+  defp create_user_account(role_id) do
+    password =
+      for _ <- 1..20, into: "", do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyz_$#@!')>>
+
+    {:ok, user} =
+      Author.changeset(%Author{}, %{
+        email: "user#{System.unique_integer([:positive])}@test.test",
+        given_name: "Test",
+        family_name: "User",
+        password: password,
+        password_confirmation: password,
+        system_role_id: role_id
+      })
+      |> Repo.insert()
+
+    %{
+      user: user,
+      password: password
+    }
+  end
 end
