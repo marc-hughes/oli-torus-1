@@ -164,7 +164,7 @@ defmodule Oli.Rendering.Content.Html do
 
   def formula(
         %Oli.Rendering.Context{} = _context,
-        nil,
+        _next,
         %{"subtype" => "latex", "src" => src},
         true
       ) do
@@ -173,7 +173,7 @@ defmodule Oli.Rendering.Content.Html do
 
   def formula(
         %Oli.Rendering.Context{} = _context,
-        nil,
+        _next,
         %{"subtype" => "latex", "src" => src},
         false
       ) do
@@ -182,7 +182,7 @@ defmodule Oli.Rendering.Content.Html do
 
   def formula(
         %Oli.Rendering.Context{} = _context,
-        nil,
+        _next,
         %{"subtype" => "mathml", "src" => src},
         inline
       ) do

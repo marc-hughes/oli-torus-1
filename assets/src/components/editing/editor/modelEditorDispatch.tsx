@@ -18,6 +18,7 @@ import { CommandContext } from '../elements/commands/interfaces';
 import { ImageEditor } from '../elements/image/block/ImageElement';
 import { EditorProps } from '../elements/interfaces';
 import { ImageInlineEditor } from '../elements/image/inline/ImageInlineElement';
+import { FormulaEditor } from '../elements/formula/FormulaEditor';
 
 export function editorFor(
   model: ContentModel.ModelElement,
@@ -87,6 +88,20 @@ export function editorFor(
       return <span {...attributes}>Not implemented</span>;
     case 'input_ref':
       return <InputRefEditor {...(editorProps as EditorProps<ContentModel.InputRef>)} />;
+    case 'formula':
+    case 'formula_inline':
+      return (
+        <FormulaEditor
+          {...(editorProps as EditorProps<ContentModel.FormulaInline | ContentModel.FormulaBlock>)}
+        />
+      );
+    // (
+
+    //   <span {...attributes}>
+    //     {props.children}
+    //     {model.src}
+    //   </span>
+    // );
     default:
       return <span>{children}</span>;
   }

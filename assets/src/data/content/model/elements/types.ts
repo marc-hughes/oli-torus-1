@@ -86,22 +86,16 @@ export interface ImageInline extends BaseImage {
   type: 'img_inline';
 }
 
-interface FormulaChildren<typeIdentifier>
+export type FormulaSubTypes = 'richtext' | 'mathml' | 'latex';
+interface Formula<typeIdentifier>
   extends SlateElement<(ImageInline | Hyperlink | Popup | InputRef)[]> {
   type: typeIdentifier;
-  subtype: 'richtext';
-  src: never;
-}
-
-interface FormulaSrc<typeIdentifier> extends SlateElement<VoidChildren> {
-  type: typeIdentifier;
-  subtype: 'mathml' | 'latex';
+  subtype: FormulaSubTypes;
   src: string;
-  children: never;
 }
 
-export type FormulaBlock = FormulaSrc<'formula'> | FormulaChildren<'formula'>;
-export type FormulaInline = FormulaSrc<'formula_inline'> | FormulaChildren<'formula_inline'>;
+export type FormulaBlock = Formula<'formula'>;
+export type FormulaInline = Formula<'formula_inline'>;
 
 export interface YouTube extends SlateElement<VoidChildren> {
   type: 'youtube';

@@ -126,6 +126,7 @@
     padding: 2px 0.5em;
     vertical-align: middle;
     mjx-container[display='true'] {
+      pointer-events: none;
       margin: 0px !important;
     }
   }
@@ -136,6 +137,9 @@
     text-align: center;
     margin: 8px;
     padding: 12px;
+    mjx-container[display='true'] {
+      pointer-events: none;
+    }
   }
 
   .figure-wrapper {
