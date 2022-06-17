@@ -49,12 +49,19 @@ interface MathJaxFormulaProps {
   src: string;
   inline: boolean;
   style?: Record<string, string>;
+  onClick?: () => void;
 }
 
-export const MathJaxMathMLFormula: React.FC<MathJaxFormulaProps> = ({ src, inline, style }) => {
+export const MathJaxMathMLFormula: React.FC<MathJaxFormulaProps> = ({
+  src,
+  inline,
+  style,
+  onClick,
+}) => {
   const ref = useMathJax(src);
   return (
     <span
+      onClick={onClick}
       style={style}
       className={cssClass(inline)}
       ref={ref}
@@ -65,12 +72,17 @@ export const MathJaxMathMLFormula: React.FC<MathJaxFormulaProps> = ({ src, inlin
 
 MathJaxMathMLFormula.defaultProps = { style: {} };
 
-export const MathJaxLatexFormula: React.FC<MathJaxFormulaProps> = ({ src, inline, style }) => {
+export const MathJaxLatexFormula: React.FC<MathJaxFormulaProps> = ({
+  src,
+  inline,
+  style,
+  onClick,
+}) => {
   const ref = useMathJax(src);
   const wrapped = inline ? `\\(${src}\\)` : `\\[${src}\\]`;
 
   return (
-    <span style={style} className={cssClass(inline)} ref={ref}>
+    <span onClick={onClick} style={style} className={cssClass(inline)} ref={ref}>
       {wrapped}
     </span>
   );

@@ -2,14 +2,11 @@ import React from 'react';
 import { onEditModel } from 'components/editing/elements/utils';
 import * as ContentModel from 'data/content/model/elements/types';
 import { EditorProps } from 'components/editing/elements/interfaces';
-import { HoverContainer } from 'components/editing/toolbar/HoverContainer';
-import { Resizable } from 'components/misc/resizable/Resizable';
-import { CaptionEditor } from 'components/editing/elements/common/settings/CaptionEditor';
 import { useElementSelected } from 'data/content/utils';
-import { ImagePlaceholder } from 'components/editing/elements/image/block/ImagePlaceholder';
-import { ImageSettings } from 'components/editing/elements/image/ImageSettings';
 import { Formula } from '../../../common/Formula';
-import { FormulaSettings } from './FormulaSettings';
+
+import { FormulaModal } from './FormulaModal';
+import { modalActions } from '../../../../actions/modal';
 
 interface Props extends EditorProps<ContentModel.FormulaBlock | ContentModel.FormulaInline> {}
 export const FormulaEditor = (props: Props) => {
@@ -23,12 +20,39 @@ export const FormulaEditor = (props: Props) => {
       </div>
     );
 
+  interface EditableProps {
+    subtype: ContentModel.FormulaSubTypes;
+    src: string;
+  }
+
+  const onFormulaClick = () => {
+    window.oliDispatch(
+      modalActions.display(
+        <FormulaModal
+          model={props.model}
+          onDone={({ src, subtype }: Partial<EditableProps>) => {
+            window.oliDispatch(modalActions.dismiss());
+            onEdit({ src, subtype });
+          }}
+          onCancel={() => window.oliDispatch(modalActions.dismiss())}
+        />,
+      ),
+    );
+  };
+
   return (
-    <div {...props.attributes} contentEditable={false}>
+    <span {...props.attributes} contentEditable={false}>
       {props.children}
 
-      <HoverContainer
-        style={{ display: 'block' }}
+      <Formula
+        onClick={onFormulaClick}
+        style={{ cursor: 'pointer' }}
+        type={props.model.type}
+        subtype={props.model.subtype}
+        src={props.model.src}
+      />
+      {/* <HoverContainer
+        style={{ display: inline ? 'inline' : 'block' }}
         isOpen={selected}
         align="start"
         position="top"
@@ -40,13 +64,7 @@ export const FormulaEditor = (props: Props) => {
           />
         }
       >
-        <Formula
-          style={{ cursor: 'pointer' }}
-          type={props.model.type}
-          subtype={props.model.subtype}
-          src={props.model.src}
-        />
-      </HoverContainer>
-    </div>
+      </HoverContainer> */}
+    </span>
   );
 };

@@ -19,9 +19,11 @@ type TopLevel =
   | Math
   | (CodeV1 | CodeV2)
   | Blockquote
-  | FormulaBlock;
-type Block = TableRow | TableCell | ListItem | MathLine | CodeLine | FormulaBlock;
-type Inline = Hyperlink | Popup | InputRef | ImageInline | FormulaInline;
+  | FormulaBlock
+  | Callout;
+
+type Block = TableRow | TableCell | ListItem | MathLine | CodeLine | FormulaBlock | Callout;
+type Inline = Hyperlink | Popup | InputRef | ImageInline | FormulaInline | CalloutInline;
 
 type TextBlock = Paragraph | Heading;
 type Heading = HeadingOne | HeadingTwo | HeadingThree | HeadingFour | HeadingFive | HeadingSix;
@@ -32,6 +34,14 @@ type TableCell = TableHeader | TableData;
 type HeadingChildren = Text[];
 export interface Paragraph extends SlateElement<(InputRef | Text | ImageBlock)[]> {
   type: 'p';
+}
+
+export interface Callout extends SlateElement<Paragraph[]> {
+  type: 'callout';
+}
+
+export interface CalloutInline extends SlateElement<(InputRef | Text | ImageInline)[]> {
+  type: 'callout_inline';
 }
 
 export interface HeadingOne extends SlateElement<HeadingChildren> {
@@ -86,7 +96,7 @@ export interface ImageInline extends BaseImage {
   type: 'img_inline';
 }
 
-export type FormulaSubTypes = 'richtext' | 'mathml' | 'latex';
+export type FormulaSubTypes = 'mathml' | 'latex';
 interface Formula<typeIdentifier>
   extends SlateElement<(ImageInline | Hyperlink | Popup | InputRef)[]> {
   type: typeIdentifier;

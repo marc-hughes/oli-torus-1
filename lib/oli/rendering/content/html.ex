@@ -38,6 +38,14 @@ defmodule Oli.Rendering.Content.Html do
     ]
   end
 
+  def callout(%Oli.Rendering.Context{} = _context, next, _) do
+    ["<span class=\"callout-block\">", next.(), "</span>\n"]
+  end
+
+  def callout_inline(%Oli.Rendering.Context{} = _context, next, _) do
+    ["<span class=\"callout-inline\">", next.(), "</span>\n"]
+  end
+
   def p(%Context{} = _context, next, _) do
     ["<p>", next.(), "</p>\n"]
   end
@@ -191,11 +199,6 @@ defmodule Oli.Rendering.Content.Html do
       Scrubber.scrub(src, MathMLSanitizer),
       "</span>\n"
     ]
-  end
-
-  def formula(%Oli.Rendering.Context{} = _context, next, _, inline) do
-    # The catch-all formula will handle anything with a children property, which should always be richtext
-    ["<span class=\"#{formula_class(inline)}\">", next.(), "</span>\n"]
   end
 
   def formula_inline(context, next, map) do

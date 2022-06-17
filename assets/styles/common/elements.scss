@@ -119,6 +119,7 @@
     @extend .embed-responsive-item;
   }
 
+  .callout-inline,
   .formula-inline {
     display: inline-block;
     background-color: darken($body-bg, 5%);
@@ -131,6 +132,7 @@
     }
   }
 
+  .callout-block,
   .formula {
     display: block;
     background-color: darken($body-bg, 5%);

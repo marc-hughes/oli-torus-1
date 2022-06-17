@@ -62,6 +62,9 @@
         },
         {
           "$ref": "#/$defs/formula"
+        },
+        {
+          "$ref": "#/$defs/callout"
         }
       ]
     },
@@ -87,6 +90,9 @@
         },
         {
           "$ref": "#/$defs/formula-inline"
+        },
+        {
+          "$ref": "#/$defs/callout-inline"
         }
       ]
     },
@@ -536,70 +542,76 @@
       "required": ["type", "children"]
     },
 
-    "formula-src": {
+    "callout": {
       "type": "object",
       "properties": {
+        "type": {
+          "const": "callout"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/paragraph"
+          }
+        }
+      },
+      "required": ["type", "children"]
+    },
+
+    "callout-inline": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "callout_inline"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        }
+      },
+      "required": ["type", "children"]
+    },
+
+    "formula": {
+      "type": "object",
+      "properties": {
+        "const": "formula",
         "subtype": {
           "enum": ["mathml", "latex"]
         },
         "src": {
           "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          }
         }
       },
       "required": ["type", "subtype", "src"]
     },
 
-    "formula-children": {
+    "formula-inline": {
       "type": "object",
       "properties": {
+        "const": "formula_inline",
         "subtype": {
-          "const": "richtext"
+          "enum": ["mathml", "latex"]
+        },
+        "src": {
+          "type": "string"
         },
         "children": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/text"
-              },
-              {
-                "$ref": "#/$defs/hyperlink"
-              },
-              {
-                "$ref": "#/$defs/input-ref"
-              },
-              {
-                "$ref": "#/$defs/image-inline"
-              }
-            ]
+            "$ref": "#"
           }
         }
       },
-      "required": ["type", "subtype", "children"]
-    },
-
-    "formula": {
-      "oneOf": [
-        { "$ref": "#/$defs/formula-src" },
-        { "$ref": "#/$defs/formula-children" }
-      ],
-      "properties": {
-        "type": {
-          "const": "formula"
-        }
-      }
-    },
-
-    "formula-inline": {
-      "oneOf": [
-        { "$ref": "#/$defs/formula-src" },
-        { "$ref": "#/$defs/formula-children" }
-      ],
-      "properties": {
-        "type": {
-          "const": "formula_inline"
-        }
-      }
+      "required": ["type", "subtype", "src"]
     },
 
     "math": {
