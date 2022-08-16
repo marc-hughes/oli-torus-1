@@ -572,7 +572,9 @@ export class MediaManager extends React.PureComponent<MediaManagerProps, MediaMa
     return error.caseOf({
       just: (error) => (
         <div className="alert alert-danger fade show" role="alert">
-          {error}
+          Error: Could not upload file.
+          <br />
+          <i>{error}</i>
         </div>
       ),
       nothing: () => null,

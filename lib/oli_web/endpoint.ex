@@ -49,7 +49,7 @@ defmodule OliWeb.Endpoint do
   plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    length: 20_000_000,
+    length: 500_000_000,
     json_decoder: Phoenix.json_library(),
     body_reader: {OliWeb.CacheBodyReader, :read_body, []}
   )
