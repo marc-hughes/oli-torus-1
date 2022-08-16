@@ -49,7 +49,8 @@ defmodule OliWeb.Endpoint do
   plug(Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    length: 500_000_000,
+    # We want 500mb file uploads, but they're base64 encoded, so need to multiply by 1.34 to account for that
+    length: 500_000_000 * 1.34,
     json_decoder: Phoenix.json_library(),
     body_reader: {OliWeb.CacheBodyReader, :read_body, []}
   )
