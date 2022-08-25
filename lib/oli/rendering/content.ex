@@ -39,6 +39,9 @@ defmodule Oli.Rendering.Content do
   @callback definition_translation(%Context{}, next, %{}) :: [any()]
   @callback definition_pronunciation(%Context{}, next, %{}) :: [any()]
 
+  @callback dialog(%Context{}, next, %{}) :: [any()]
+  @callback dialog_line(%Context{}, next, %{}, %{}) :: [any()]
+
   @callback formula(%Context{}, next, %{}) :: [any()]
   @callback formula_inline(%Context{}, next, %{}) :: [any()]
 
@@ -150,31 +153,23 @@ defmodule Oli.Rendering.Content do
 
   def render(
         %Context{} = context,
-        %{"type" => "definition"} = element,
+        %{"type" => "dialog"} = element,
         writer
       ) do
-    render_translation = fn ->
-      case element["translations"] do
-        nil -> []
-        translations -> Enum.map(translations, fn child -> render(context, child, writer) end)
+    render_lines = fn ->
+      case element["lines"] do
+        nil ->
+          []
+
+        lines ->
+          Enum.map(lines, fn child ->
+            render_line_content = fn -> render(context, child["children"], writer) end
+            writer.dialog_line(context, render_line_content, child, element)
+          end)
       end
     end
 
-    render_pronunciation = fn ->
-      case element["pronunciation"] do
-        nil -> []
-        pronunciation -> render(context, pronunciation, writer)
-      end
-    end
-
-    render_meaning = fn ->
-      case element["meanings"] do
-        nil -> []
-        meanings -> Enum.map(meanings, fn child -> render(context, child, writer) end)
-      end
-    end
-
-    writer.definition(context, render_translation, render_pronunciation, render_meaning, element)
+    writer.dialog(context, render_lines, element)
   end
 
   # Renders a content element by calling the provided writer implementation on a
