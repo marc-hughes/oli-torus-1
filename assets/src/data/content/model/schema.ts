@@ -15,6 +15,7 @@ const BlockElements: SchemaKey[] = [
   'tc',
   'ol',
   'ul',
+  'dl',
   'math',
   'math_line',
   'code_line',
@@ -125,6 +126,24 @@ export const schema: Schema = {
     isBlock: true,
     isTopLevel: false,
     validChildren: toObj(SemanticChildrenElements),
+  },
+  dl: {
+    isVoid: false,
+    isBlock: true,
+    isTopLevel: true,
+    validChildren: toObj(['dt', 'dd']),
+  },
+  dt: {
+    isVoid: false,
+    isBlock: true,
+    isTopLevel: false,
+    validChildren: toObj([]),
+  },
+  dd: {
+    isVoid: false,
+    isBlock: true,
+    isTopLevel: false,
+    validChildren: toObj([]),
   },
   pronunciation: {
     isVoid: false,
