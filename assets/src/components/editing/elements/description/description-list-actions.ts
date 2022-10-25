@@ -23,19 +23,21 @@ export const insertDescriptionList = (editor: SlateEditor) => {
   Transforms.insertNodes(editor, list, { at });
 };
 
-const insertListItem = (
+const appendListItem = (
   editor: SlateEditor,
   element: DescriptionListTerm | DescriptionListDefinition,
 ) => {
-  const at = editor.selection as any;
+  const at = editor.selection;
+  if (!at) return;
+  console.info(at);
 
   Transforms.insertNodes(editor, element, { at });
 };
 
-export const insertDescriptionTerm = (editor: SlateEditor) => {
-  insertListItem(editor, Model.dt());
+export const appendDescriptionTerm = (editor: SlateEditor) => {
+  appendListItem(editor, Model.dt());
 };
 
-export const insertDescriptionDefinition = (editor: SlateEditor) => {
-  insertListItem(editor, Model.dd());
+export const appendDescriptionDefinition = (editor: SlateEditor) => {
+  appendListItem(editor, Model.dd());
 };

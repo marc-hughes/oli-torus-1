@@ -128,22 +128,22 @@ export const schema: Schema = {
     validChildren: toObj(SemanticChildrenElements),
   },
   dl: {
-    isVoid: false,
+    isVoid: true,
     isBlock: true,
     isTopLevel: true,
-    validChildren: toObj(['dt', 'dd']),
+    validChildren: toObj([]),
   },
   dt: {
     isVoid: false,
     isBlock: true,
     isTopLevel: false,
-    validChildren: toObj([]),
+    validChildren: toObj(SemanticChildrenElements),
   },
   dd: {
     isVoid: false,
     isBlock: true,
     isTopLevel: false,
-    validChildren: toObj([]),
+    validChildren: toObj(SemanticChildrenElements),
   },
   pronunciation: {
     isVoid: false,

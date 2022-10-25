@@ -144,6 +144,7 @@ export const UnorderdListStyles = ['none', 'disc', 'circle', 'square'];
 export type UnorderedListStyle = typeof UnorderdListStyles[number];
 
 type ListChildren = (ListItem | OrderedList | UnorderedList | Text)[];
+
 export interface OrderedList extends SlateElement<ListChildren> {
   type: 'ol';
   style?: OrderedListStyle;
@@ -164,9 +165,10 @@ export interface DescriptionListDefinition extends SlateElement<(List | Text)[]>
 
 type DescriptionListChildren = (DescriptionListTerm | DescriptionListDefinition)[];
 
-export interface DescriptionList extends SlateElement<DescriptionListChildren> {
+export interface DescriptionList extends SlateElement<VoidChildren> {
   type: 'dl';
   title: (Inline | TextBlock)[];
+  items: DescriptionListChildren;
 }
 
 interface BaseImage extends SlateElement<VoidChildren> {

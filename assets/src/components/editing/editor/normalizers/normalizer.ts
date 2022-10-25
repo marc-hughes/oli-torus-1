@@ -3,6 +3,7 @@ import { normalize as rootNormalize } from 'components/editing/editor/normalizer
 import { normalize as blockNormalize } from 'components/editing/editor/normalizers/block';
 import { normalize as spacesNormalize } from 'components/editing/editor/normalizers/spaces';
 import { normalize as listNormalize } from 'components/editing/editor/normalizers/lists';
+import { normalize as descriptionListNormalize } from 'components/editing/editor/normalizers/description-lists';
 import { normalize as codeNormalize } from 'components/editing/editor/normalizers/code';
 import { normalize as forceRootNode } from 'components/editing/editor/normalizers/forceRootNode';
 import { Model } from 'data/content/model/elements/factories';
@@ -27,6 +28,7 @@ interface NormalizerOptions {
   tableNormalize: boolean;
   conjugationNormalize: boolean;
   forceRootNode?: AllModelElements; // Force us to have a single root node of a specific type
+  descriptionListNormalize: boolean;
 }
 
 const defaultOptions = {
@@ -39,6 +41,7 @@ const defaultOptions = {
   listNormalize: true,
   tableNormalize: true,
   forceRootNode: undefined,
+  descriptionListNormalize: true,
 };
 
 export function installNormalizer(
@@ -96,6 +99,7 @@ export function installNormalizer(
       if (options.codeNormalize && codeNormalize(editor, node, path)) return;
       if (options.listNormalize && listNormalize(editor, node, path)) return;
       if (options.tableNormalize && tableNormalize(editor, node, path)) return;
+      //if (options.descriptionListNormalize && descriptionListNormalize(editor, node, path)) return;
     } catch (e) {
       // tslint:disable-next-line
       console.error('Normalization Error:', e);

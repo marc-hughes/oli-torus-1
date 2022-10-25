@@ -33,7 +33,7 @@ defmodule Oli.Rendering.Content do
   @callback ol(%Context{}, next, %{}) :: [any()]
   @callback ul(%Context{}, next, %{}) :: [any()]
   @callback li(%Context{}, next, %{}) :: [any()]
-  @callback dl(%Context{}, next, %{}) :: [any()]
+  @callback dl(%Context{}, next, next, %{}) :: [any()]
   @callback dt(%Context{}, next, %{}) :: [any()]
   @callback dd(%Context{}, next, %{}) :: [any()]
 
@@ -224,10 +224,10 @@ defmodule Oli.Rendering.Content do
 
   def render(
         %Context{} = context,
-        %{"type" => "dl", "children" => children, "title" => title} = element,
+        %{"type" => "dl", "items" => items, "title" => title} = element,
         writer
       ) do
-    render_children = fn -> render(context, children, writer) end
+    render_children = fn -> render(context, items, writer) end
     render_title = fn -> render(context, title, writer) end
     writer.dl(context, render_children, render_title, element)
   end

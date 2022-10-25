@@ -300,10 +300,16 @@
             "$ref": "#/$defs/inline"
           }
         },
-        "children": {
+        "items": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/desription-list-item"
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
           }
         }
       }

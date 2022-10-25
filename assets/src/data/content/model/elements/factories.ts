@@ -45,6 +45,7 @@ import {
   DescriptionListTerm,
   DescriptionListDefinition,
   DescriptionList,
+  ModelElement,
 } from 'data/content/model/elements/types';
 import { Text } from 'slate';
 import guid from 'utils/guid';
@@ -80,11 +81,11 @@ export const Model = {
 
   dt: () => create<DescriptionListTerm>({ type: 'dt', children: [{ text: 'A term' }] }),
   dd: () => create<DescriptionListDefinition>({ type: 'dd', children: [{ text: 'A definition' }] }),
-  dl: () =>
+  dl: (children: (DescriptionListDefinition | DescriptionListTerm)[] | null = null) =>
     create<DescriptionList>({
       type: 'dl',
       title: [Model.p([{ text: 'Description Title' }])],
-      children: [Model.dt(), Model.dd()],
+      items: children || [Model.dt(), Model.dd()],
     }),
 
   video: () => create<Video>({ type: 'video', src: [] }),
