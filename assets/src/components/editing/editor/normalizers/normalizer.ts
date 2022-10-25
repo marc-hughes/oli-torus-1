@@ -28,7 +28,6 @@ interface NormalizerOptions {
   tableNormalize: boolean;
   conjugationNormalize: boolean;
   forceRootNode?: AllModelElements; // Force us to have a single root node of a specific type
-  descriptionListNormalize: boolean;
 }
 
 const defaultOptions = {
@@ -41,7 +40,6 @@ const defaultOptions = {
   listNormalize: true,
   tableNormalize: true,
   forceRootNode: undefined,
-  descriptionListNormalize: true,
 };
 
 export function installNormalizer(
@@ -99,7 +97,6 @@ export function installNormalizer(
       if (options.codeNormalize && codeNormalize(editor, node, path)) return;
       if (options.listNormalize && listNormalize(editor, node, path)) return;
       if (options.tableNormalize && tableNormalize(editor, node, path)) return;
-      //if (options.descriptionListNormalize && descriptionListNormalize(editor, node, path)) return;
     } catch (e) {
       // tslint:disable-next-line
       console.error('Normalization Error:', e);
