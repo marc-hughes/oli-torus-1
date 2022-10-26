@@ -6,7 +6,7 @@
 
   dd,
   dt {
-    border: 1px dashed #ccc;
+    border: 1px dashed $body-bg;
     padding: 0.1em;
     padding-left: 0.1em;
     margin: 2px;
@@ -22,6 +22,7 @@
   }
   dd:hover,
   dt:hover {
+    border: 1px dashed #ccc;
     .delete-btn {
       display: block;
     }
