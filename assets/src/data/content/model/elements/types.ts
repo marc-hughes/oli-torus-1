@@ -155,11 +155,11 @@ export interface UnorderedList extends SlateElement<ListChildren> {
   style?: UnorderedListStyle;
 }
 
-export interface DescriptionListTerm extends SlateElement<(List | Text)[]> {
+export interface DescriptionListTerm extends SlateElement<SemanticChildren[]> {
   type: 'dt';
 }
 
-export interface DescriptionListDefinition extends SlateElement<(List | Text)[]> {
+export interface DescriptionListDefinition extends SlateElement<SemanticChildren[]> {
   type: 'dd';
 }
 

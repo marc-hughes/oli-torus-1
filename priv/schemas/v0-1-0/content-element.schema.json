@@ -330,7 +330,7 @@
         "children": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/inline"
+            "$ref": "#/$defs/semantic-element-content"
           }
         }
       }

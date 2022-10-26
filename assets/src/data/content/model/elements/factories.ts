@@ -79,8 +79,12 @@ export const Model = {
 
   ul: () => create<UnorderedList>({ type: 'ul', children: [Model.li()] }),
 
-  dt: () => create<DescriptionListTerm>({ type: 'dt', children: [{ text: 'A term' }] }),
-  dd: () => create<DescriptionListDefinition>({ type: 'dd', children: [{ text: 'A definition' }] }),
+  dt: () => create<DescriptionListTerm>({ type: 'dt', children: [Model.p([{ text: 'A term' }])] }),
+  dd: () =>
+    create<DescriptionListDefinition>({
+      type: 'dd',
+      children: [Model.p([{ text: 'A definition' }])],
+    }),
   dl: (children: (DescriptionListDefinition | DescriptionListTerm)[] | null = null) =>
     create<DescriptionList>({
       type: 'dl',

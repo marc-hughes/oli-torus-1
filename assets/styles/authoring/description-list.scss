@@ -4,6 +4,13 @@
     gap: 1em;
   }
 
+  h4 {
+    border: 1px dashed $body-bg;
+  }
+  h4:hover {
+    border: 1px dashed #ccc;
+  }
+
   dd,
   dt {
     border: 1px dashed $body-bg;
